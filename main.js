@@ -1,5 +1,5 @@
 const gridSize = 500;
-let resetButton, numSquares;
+let resetButton, gridButton, numSquares;
 
 function createGrid(numSquares) {
   // Remove the existing container
@@ -37,9 +37,21 @@ function resetGrid() {
   });
 }
 
-createGrid(16);
-
-resetButton = document.createElement("button");
-resetButton.textContent = "Reset";
+resetButton = document.querySelector(".reset");
 resetButton.addEventListener("click", resetGrid);
-document.body.appendChild(resetButton);
+
+gridButton = document.querySelector(".createGrid");
+gridButton.addEventListener("click", () => {
+  numSquares = prompt("Enter the number of squares per side (1 - 100): ");
+  if (numSquares == null) {
+    return;
+  } else if (!Number(numSquares) || !Number.isInteger(Number(numSquares))) {
+    alert("The value must be an integer.");
+  } else if (Number(numSquares) < 1 || Number(numSquares) > 100) {
+    alert("The value must be between 1 and 100.");
+  } else {
+    createGrid(Number(numSquares));
+  }
+});
+
+createGrid(16);
